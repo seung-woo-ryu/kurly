@@ -16,12 +16,11 @@ public class Item {
     @Column(name="name",unique = true,nullable = false)
     private String name;
 
-    private Item(Long id, String name) {
-        this.id = id;
+    private Item(String name) {
         this.name = name;
     }
 
-    public Item of(Long id, String name) {
-        return new Item(id, name);
+    public static Item of(String name) {
+        return new Item(name);
     }
 }

@@ -1,6 +1,7 @@
 package com.kurly.demo.user.domain;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
+@Getter
 public class User {
 
     @Id
@@ -24,6 +26,17 @@ public class User {
     private String name;
     @Column(name="age",nullable = false)
     private Long age;
+
+    private User(String email, String password, String name, Long age) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.age = age;
+    }
+
+    public static User of(String email, String password, String name, Long age) {
+        return new User(email, password, name, age);
+    }
 
     /*
     ToDo: 나중에 enum으로
