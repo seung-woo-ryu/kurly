@@ -11,7 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order_informations")
+@Table(name = "order_information")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @Getter
