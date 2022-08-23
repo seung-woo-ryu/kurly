@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DataInitializer implements ApplicationRunner {
     private static final String DEFAULT_PASSWORD = "qwerasdf12!";
+    private static final String DEFAULT_REQUEST_INFROMATION = "조심해서 배달해주세요!";
     public final UserRepository userRepository;
     public final OrderRepository orderRepository;
     public final ItemRepository itemRepository;
@@ -87,7 +88,7 @@ public class DataInitializer implements ApplicationRunner {
     }
 
     private Order saveOrder(User user, String imageUrl, String address, boolean isCompleted) {
-        return orderRepository.save(Order.of(user, imageUrl, address, isCompleted));
+        return orderRepository.save(Order.of(user, imageUrl, address, DEFAULT_REQUEST_INFROMATION,isCompleted));
     }
 
     private Item saveItem(String name) {

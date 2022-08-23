@@ -29,17 +29,21 @@ public class Order {
     private String imageUrl;
     @Column(name = "address",unique = true,nullable = false)
     private String address;
+
+    @Column(name = "request_information", unique = false, nullable = false)
+    private String requestInformation;
     @Column(name = "is_completed", nullable = false)
     private boolean isCompleted;
 
-    private Order(User user, String imageUrl, String address, boolean isCompleted) {
+    private Order(User user, String imageUrl, String address,String requestInformation, boolean isCompleted) {
         this.user = user;
         this.imageUrl = imageUrl;
         this.address = address;
+        this.requestInformation = requestInformation;
         this.isCompleted = isCompleted;
     }
 
-    public static Order of(User user, String imageUrl, String address, boolean isCompleted) {
-        return new Order(user, imageUrl, address, isCompleted);
+    public static Order of(User user, String imageUrl, String address,String requestInformation, boolean isCompleted) {
+        return new Order(user, imageUrl, address,requestInformation, isCompleted);
     }
 }
