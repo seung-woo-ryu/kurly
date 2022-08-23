@@ -24,8 +24,8 @@ public class OrderService {
 
     public ResponseDto getPreviousOrders(Long orderId) {
         Order myOrder = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
-        // findall 시험해보기.
-        List<Order> allByUser_id = orderRepository.findAllByUser_Id(myOrder.getUser().getId());
+
+        List<Order> allByUser_id = orderRepository.findAllByUser_IdAndIsCompleted(myOrder.getUser().getId(),true);
         List<PreviousOrderDto> previousOrderDtoList = allByUser_id
                 .stream()
                 .filter(o -> o.getId() != orderId)
