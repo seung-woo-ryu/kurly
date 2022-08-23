@@ -6,12 +6,16 @@ import com.kurly.demo.order.domain.Order;
 import com.kurly.demo.order.domain.OrderInformation;
 import com.kurly.demo.order.repository.OrderInformationRepository;
 import com.kurly.demo.order.repository.OrderRepository;
+import com.kurly.demo.user.domain.Role;
 import com.kurly.demo.user.domain.User;
 import com.kurly.demo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+
+import static com.kurly.demo.user.domain.Role.ROLE_DELIVERY_MAN;
+import static com.kurly.demo.user.domain.Role.ROLE_USER;
 
 @Component
 @RequiredArgsConstructor
@@ -26,6 +30,7 @@ public class DataInitializer implements ApplicationRunner {
     public static User testUser2;
     public static User testUser3;
     public static User testUser4;
+    public static User testUser5;
     public static Order testOrder1;
     public static Order testOrder2;
     public static Order testOrder3;
@@ -52,17 +57,18 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        testUser1 = saveUser("tmddn111@gmail.com", DEFAULT_PASSWORD, "seungwoo", 25L);
-        testUser2 = saveUser("kmk111@gmail.com", DEFAULT_PASSWORD, "kimminkwon", 22L);
-        testUser3 = saveUser("khm111@gmail.com", DEFAULT_PASSWORD, "kanghunmo", 23L);
-        testUser4 = saveUser("ksj111@gmail.com", DEFAULT_PASSWORD, "kimseongjun", 24L);
+        testUser1 = saveUser("tmddn111@gmail.com", DEFAULT_PASSWORD, "seungwoo", 25L,ROLE_USER);
+        testUser2 = saveUser("kmk111@gmail.com", DEFAULT_PASSWORD, "kimminkwon", 22L,ROLE_USER);
+        testUser3 = saveUser("khm111@gmail.com", DEFAULT_PASSWORD, "kanghunmo", 23L,ROLE_USER);
+        testUser4 = saveUser("ksj111@gmail.com", DEFAULT_PASSWORD, "kimseongjun", 24L,ROLE_USER);
+        testUser5 = saveUser("ysk@gmail.com", DEFAULT_PASSWORD, "youseokkun", 24L,ROLE_DELIVERY_MAN);
 
-        testOrder1 = saveOrder(testUser1,null,"서울 중구 서애로 12-20",false);
-        testOrder2 = saveOrder(testUser2,null,"서울 중구 서애로 26",false);
-        testOrder3 = saveOrder(testUser3,null,"서울 성동구 금호로 100",false);
-        testOrder4 = saveOrder(testUser4,null,"서울 성동구 금호로 15",false);
-        testOrder5 = saveOrder(testUser1,"default_url","서울 중구 서애로 12-20",true);
-        testOrder6 = saveOrder(testUser1,"default_url1","서울 중구 서애로 12-20",true);
+        testOrder1 = saveOrder(testUser1,null,"서울 중구 서애로 12-20",false,testUser5);
+        testOrder2 = saveOrder(testUser2,null,"서울 중구 서애로 26",false,testUser5);
+        testOrder3 = saveOrder(testUser3,null,"서울 성동구 금호로 100",false,testUser5);
+        testOrder4 = saveOrder(testUser4,null,"서울 성동구 금호로 15",false,testUser5);
+        testOrder5 = saveOrder(testUser1,"default_url","서울 중구 서애로 12-20",true,testUser5);
+        testOrder6 = saveOrder(testUser1,"default_url1","서울 중구 서애로 12-20",true,testUser5);
 
         testItem1 = saveItem("크라운 신짱");
         testItem2 = saveItem("뉴질랜드 골드 키위");
@@ -87,12 +93,12 @@ public class DataInitializer implements ApplicationRunner {
         testOrderInformationByOrder4AndItem8 = saveOrderInformation(testOrder4, testItem8, 3L);
     }
 
-    private User saveUser(String email, String password, String name, Long age) {
-        return userRepository.save(User.of(email, password, name, age));
+    private User saveUser(String email, String password, String name, Long age, Role role) {
+        return userRepository.save(User.of(email, password, name, age, role));
     }
 
-    private Order saveOrder(User user, String imageUrl, String address, boolean isCompleted) {
-        return orderRepository.save(Order.of(user, imageUrl, address, DEFAULT_REQUEST_INFROMATION,isCompleted));
+    private Order saveOrder(User user, String imageUrl, String address, boolean isCompleted,User deliveryUser) {
+        return orderRepository.save(Order.of(user, imageUrl, address, DEFAULT_REQUEST_INFROMATION,isCompleted,deliveryUser));
     }
 
     private Item saveItem(String name) {

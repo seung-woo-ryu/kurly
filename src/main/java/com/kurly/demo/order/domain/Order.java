@@ -18,13 +18,19 @@ import javax.persistence.*;
 public class Order {
     @Id
     @Column(name="id",unique = true,nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "delivery_man_id", referencedColumnName = "id")
+    private User deliveryUser;
+
     @Column(name = "image_url",unique = true)
     private String imageUrl;
     @Column(name = "address",unique = false,nullable = false)
@@ -34,15 +40,16 @@ public class Order {
     @Column(name = "is_completed", nullable = false)
     private boolean isCompleted;
 
-    private Order(User user, String imageUrl, String address,String requestInformation, boolean isCompleted) {
+    private Order(User user, String imageUrl, String address,String requestInformation, boolean isCompleted,User deliveryUser) {
         this.user = user;
         this.imageUrl = imageUrl;
         this.address = address;
         this.requestInformation = requestInformation;
         this.isCompleted = isCompleted;
+        this.deliveryUser = deliveryUser;
     }
 
-    public static Order of(User user, String imageUrl, String address,String requestInformation, boolean isCompleted) {
-        return new Order(user, imageUrl, address,requestInformation, isCompleted);
+    public static Order of(User user, String imageUrl, String address,String requestInformation, boolean isCompleted,User deliveryUser) {
+        return new Order(user, imageUrl, address,requestInformation, isCompleted,deliveryUser);
     }
 }
