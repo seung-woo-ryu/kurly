@@ -16,7 +16,7 @@ public class User {
 
     @Id
     @Column(name="id",unique = true,nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "email",unique = true,nullable = false)
     private String email;
@@ -27,15 +27,19 @@ public class User {
     @Column(name="age",nullable = false)
     private Long age;
 
-    private User(String email, String password, String name, Long age) {
+    @Column(name = "role", nullable = false)
+    private Role role;
+
+    private User(String email, String password, String name, Long age,Role role) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.age = age;
+        this.role = role;
     }
 
-    public static User of(String email, String password, String name, Long age) {
-        return new User(email, password, name, age);
+    public static User of(String email, String password, String name, Long age,Role role) {
+        return new User(email, password, name, age,role);
     }
 
     /*

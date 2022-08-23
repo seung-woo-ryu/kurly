@@ -8,16 +8,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class PreviousOrderDto {
+public class OrderHistoryDto {
+    private Long orderId;
     private String deliveryImageUrl;
     private String requestInformation;
 
-    private PreviousOrderDto(String deliveryImageUrl, String requestInformation) {
+    private OrderHistoryDto(Long orderId, String deliveryImageUrl, String requestInformation) {
+        this.orderId = orderId;
         this.deliveryImageUrl = deliveryImageUrl;
         this.requestInformation = requestInformation;
     }
 
-    public static PreviousOrderDto of(String deliveryImageUrl, String requestInformation) {
-        return new PreviousOrderDto(deliveryImageUrl, requestInformation);
+    public static OrderHistoryDto of(Long orderId, String deliveryImageUrl, String requestInformation) {
+        return new OrderHistoryDto(orderId,deliveryImageUrl, requestInformation);
     }
 }
