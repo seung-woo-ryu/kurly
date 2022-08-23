@@ -30,6 +30,8 @@ public class DataInitializer implements ApplicationRunner {
     public static Order testOrder2;
     public static Order testOrder3;
     public static Order testOrder4;
+    public static Order testOrder5;
+    public static Order testOrder6;
     public static Item testItem1;
     public static Item testItem2;
     public static Item testItem3;
@@ -59,6 +61,8 @@ public class DataInitializer implements ApplicationRunner {
         testOrder2 = saveOrder(testUser2,null,"서울 중구 서애로 26",false);
         testOrder3 = saveOrder(testUser3,null,"서울 성동구 금호로 100",false);
         testOrder4 = saveOrder(testUser4,null,"서울 성동구 금호로 15",false);
+        testOrder5 = saveOrder(testUser1,"default_url","서울 중구 서애로 12-20",true);
+        testOrder6 = saveOrder(testUser1,"default_url1","서울 중구 서애로 12-20",true);
 
         testItem1 = saveItem("크라운 신짱");
         testItem2 = saveItem("뉴질랜드 골드 키위");

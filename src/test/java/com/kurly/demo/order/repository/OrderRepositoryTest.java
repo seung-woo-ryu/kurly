@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityNotFoundException;
 
+import java.util.List;
+
 import static com.kurly.demo.common.datainitializer.DataInitializer.testOrder1;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,5 +30,14 @@ class OrderRepositoryTest {
         assertThat(findOrder.getAddress()).isEqualTo(testOrder1.getAddress());
         assertThat(findOrder.getImageUrl()).isEqualTo(testOrder1.getImageUrl());
         assertThat(findOrder.getUser().getId()).isEqualTo(testOrder1.getUser().getId());
+    }
+
+    @Test
+    void findAllByUser_IdAndIsCompleted() {
+        Long id = testOrder1.getUser().getId();
+
+        List<Order> result = orderRepository.findAllByUser_IdAndIsCompleted(id, true);
+
+        assertThat(result).hasSize(2);
     }
 }

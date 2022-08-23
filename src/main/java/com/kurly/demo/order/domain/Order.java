@@ -27,9 +27,8 @@ public class Order {
     private User user;
     @Column(name = "image_url",unique = true)
     private String imageUrl;
-    @Column(name = "address",unique = true,nullable = false)
+    @Column(name = "address",unique = false,nullable = false)
     private String address;
-
     @Column(name = "request_information", unique = false, nullable = false)
     private String requestInformation;
     @Column(name = "is_completed", nullable = false)
